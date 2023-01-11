@@ -4,14 +4,12 @@ import Card from "react-bootstrap/Card";
 
 function PokemonCard({ url, name }) {
   const [pokemon, setPokemon] = useState(null);
-  const [abilities, setAbilities] = useState(null);
 
   useEffect(() => {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
         setPokemon(data);
-        setAbilities(data.abilities);
       })
       .catch((error) => {
         console.error(error);
