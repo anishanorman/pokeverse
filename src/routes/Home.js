@@ -26,7 +26,7 @@ function Home({pokemonList}) {
       </InputGroup>
       <Row>
         {pokemonFiltered.map((pokemon, key) => (
-          <PokemonCard key={key} name={pokemon.name} url={pokemon.url} />
+          <PokemonCard key={key} name={pokemon.name} />
         ))}
       </Row>
     </Container>

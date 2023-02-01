@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Navigation } from "./components/Navigation";
+import { FavouritesProvider } from "./helpers/FavouritesProvider";
+import { Favourites } from "./routes/Favourites";
 import { Home } from "./routes/Home";
 import { PokemonDetails } from "./routes/PokemonDetails";
 
@@ -14,7 +16,7 @@ function App() {
     fetch(pokeApi)
       .then((response) => response.json())
       .then((data) => {
-        setPokemonList(data.results)
+        setPokemonList(data.results);
       })
       .catch((error) => {
         console.error(error);
@@ -25,10 +27,13 @@ function App() {
     <div data-testid="app">
       <BrowserRouter>
         <Navigation />
-        <Routes>
-          <Route path="/" element={<Home pokemonList={pokemonList} />} />
-          <Route path="/:name" element={<PokemonDetails />} />
-        </Routes>
+        <FavouritesProvider>
+          <Routes>
+            <Route path="/" element={<Home pokemonList={pokemonList} />} />
+            <Route path="/:name" element={<PokemonDetails />} />
+            <Route path="/favourites" element={<Favourites />} />
+          </Routes>
+        </FavouritesProvider>
       </BrowserRouter>
     </div>
   );

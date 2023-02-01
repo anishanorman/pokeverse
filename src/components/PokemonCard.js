@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Badge, Col, ListGroup, ListGroupItem, Stack } from "react-bootstrap";
-import Card from "react-bootstrap/Card";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react"
+import { Badge, Button, Col, ListGroup, ListGroupItem, Stack } from "react-bootstrap"
+import Card from "react-bootstrap/Card"
+import { Link } from "react-router-dom"
+import { FavouritesContext } from "../helpers/FavouritesProvider"
 
-function PokemonCard({ url, name }) {
-  const [pokemon, setPokemon] = useState(null);
+function PokemonCard({ name }) {
+  const [pokemon, setPokemon] = useState(null)
+  const {addFavourite} = useContext(FavouritesContext)
 
   useEffect(() => {
-    fetch(url)
+    fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
       .then((response) => response.json())
       .then((data) => {
         setPokemon(data);
@@ -15,7 +17,7 @@ function PokemonCard({ url, name }) {
       .catch((error) => {
         console.error(error);
       });
-  }, [url]);
+  }, [name]);
 
   return (
     <Col xs={10} sm={6} md={4} lg={3} xl={3} xxl={2} className="mx-auto">
@@ -70,6 +72,9 @@ function PokemonCard({ url, name }) {
               </ListGroupItem>
             ))}
           </ListGroup>
+          <Button variant="primary" onClick={() => addFavourite(name)}>
+            Add to Favourites
+          </Button>
         </Card.Body>
       </Card>
     </Col>

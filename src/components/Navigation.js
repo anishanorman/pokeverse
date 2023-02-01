@@ -16,6 +16,7 @@ function Navigation() {
         </Navbar.Brand>
         <Nav className='me-auto'>
           <Nav.Link as={Link} to='/'>All Pokemon</Nav.Link>
+          <Nav.Link as={Link} to='/favourites'>Favourites</Nav.Link>
         </Nav>
       </Container>
     </Navbar>
