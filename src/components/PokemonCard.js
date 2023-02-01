@@ -1,12 +1,21 @@
-import React, { useState, useEffect, useContext } from "react"
-import { Badge, Button, Col, ListGroup, ListGroupItem, Stack } from "react-bootstrap"
-import Card from "react-bootstrap/Card"
-import { Link } from "react-router-dom"
-import { FavouritesContext } from "../helpers/FavouritesProvider"
+import React, { useState, useEffect, useContext } from "react";
+import {
+  Badge,
+  Button,
+  Col,
+  ListGroup,
+  ListGroupItem,
+  Stack,
+} from "react-bootstrap";
+import Card from "react-bootstrap/Card";
+import { Link } from "react-router-dom";
+import { FavouritesContext, FavouritesProvider } from "../helpers/FavouritesProvider";
+import { Favourites } from "../routes/Favourites";
 
 function PokemonCard({ name }) {
-  const [pokemon, setPokemon] = useState(null)
-  const {addFavourite} = useContext(FavouritesContext)
+  const [pokemon, setPokemon] = useState(null);
+  const { addFavourite, removeFavourite} = useContext(FavouritesContext)
+  const { favourites } = useContext(FavouritesContext)
 
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
@@ -72,9 +81,15 @@ function PokemonCard({ name }) {
               </ListGroupItem>
             ))}
           </ListGroup>
-          <Button variant="primary" onClick={() => addFavourite(name)}>
-            Add to Favourites
-          </Button>
+          {favourites.includes(name) ? (
+            <Button variant="primary" onClick={() => removeFavourite(name)}>
+              Remove from favourites
+            </Button>
+          ) : (
+            <Button variant="primary" onClick={() => addFavourite(name)}>
+              Add to Favourites
+            </Button>
+          )}
         </Card.Body>
       </Card>
     </Col>

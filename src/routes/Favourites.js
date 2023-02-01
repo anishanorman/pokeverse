@@ -7,7 +7,7 @@ export function Favourites() {
 
     const { favourites } = useContext(FavouritesContext)
     
-    if (!Favourites) {
+    if (favourites.length === 0) {
         return (
             <Container>
                 Nothing here yet!
